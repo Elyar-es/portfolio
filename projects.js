@@ -5,13 +5,26 @@ const API_BASE = 'https://api.github.com';
 // Get all repositories for the user
 async function fetchRepositories() {
     try {
-        const response = await fetch(`${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+        const url = `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`;
+        console.log('Fetching repositories from:', url);
+        
+        const response = await fetch(url);
+        
+        console.log('Response status:', response.status);
         
         if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
+            const errorText = await response.text().catch(() => '');
+            console.error('API Error:', response.status, errorText);
+            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
         }
         
         const repos = await response.json();
+        console.log('Successfully fetched', repos.length, 'repositories');
+        
+        if (!Array.isArray(repos)) {
+            console.error('Unexpected response format:', repos);
+            throw new Error('Unexpected response format from GitHub API');
+        }
         
         // Filter out forks if you only want original projects
         // Uncomment the next line if you want to exclude forks
@@ -130,6 +143,12 @@ async function displayProjects() {
         console.error('Error displaying projects:', error);
         loadingEl.style.display = 'none';
         errorEl.style.display = 'block';
+        errorEl.innerHTML = `
+            <p><strong>Unable to load projects</strong></p>
+            <p>Error: ${error.message || 'Unknown error'}</p>
+            <p>Please check the browser console (F12) for more details.</p>
+            <p>GitHub username: <code>${GITHUB_USERNAME}</code></p>
+        `;
     }
 }
 
