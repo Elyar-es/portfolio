@@ -31,6 +31,18 @@ async function fetchRepositories() {
         if (!response.ok) {
             const errorText = await response.text().catch(() => '');
             console.error('API Error:', response.status, errorText);
+            
+            if (response.status === 403) {
+                // Check if it's a rate limit issue
+                const rateLimitRemaining = response.headers.get('X-RateLimit-Remaining');
+                const rateLimitReset = response.headers.get('X-RateLimit-Reset');
+                if (rateLimitRemaining === '0') {
+                    const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000).toLocaleTimeString() : 'soon';
+                    throw new Error(`GitHub API rate limit exceeded. Please try again after ${resetTime}.`);
+                }
+                throw new Error(`GitHub API error: Access forbidden (403). This might be due to rate limiting. Please wait a few minutes and refresh the page.`);
+            }
+            
             throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
         }
         
@@ -69,7 +81,14 @@ async function fetchRepositories() {
 async function fetchRepoLanguages(repo) {
     try {
         const response = await fetch(`${API_BASE}/repos/${repo.full_name}/languages`);
-        if (!response.ok) return {};
+        if (!response.ok) {
+            // If rate limited or other error, return empty object
+            if (response.status === 403 || response.status === 429) {
+                console.warn(`Rate limited or forbidden for ${repo.name}, skipping languages`);
+                return {};
+            }
+            return {};
+        }
         return await response.json();
     } catch (error) {
         console.error(`Error fetching languages for ${repo.name}:`, error);
@@ -165,18 +184,23 @@ async function displayProjects() {
         repos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
         
         // Create cards for each repository
-        const cards = await Promise.all(
-            repos.map(async (repo) => {
-                try {
-                    const languages = await fetchRepoLanguages(repo);
-                    const primaryLanguage = getPrimaryLanguage(languages);
-                    return createProjectCard(repo, primaryLanguage);
-                } catch (err) {
-                    console.error(`Error processing repo ${repo.name}:`, err);
-                    return createProjectCard(repo, null);
+        // Process languages sequentially with delay to avoid rate limiting
+        const cards = [];
+        for (let i = 0; i < repos.length; i++) {
+            const repo = repos[i];
+            try {
+                // Add small delay between requests to avoid rate limiting
+                if (i > 0) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
                 }
-            })
-        );
+                const languages = await fetchRepoLanguages(repo);
+                const primaryLanguage = getPrimaryLanguage(languages);
+                cards.push(createProjectCard(repo, primaryLanguage));
+            } catch (err) {
+                console.error(`Error processing repo ${repo.name}:`, err);
+                cards.push(createProjectCard(repo, null));
+            }
+        }
         
         gridEl.innerHTML = cards.join('');
         loadingEl.style.display = 'none';
