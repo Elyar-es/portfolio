@@ -44,6 +44,42 @@ const PROJECTS = [
         stars: 0,
         forks: 0,
         language: "Python"
+    },
+    {
+        name: "facial_keypoint_detection",
+        displayName: "Facial Keypoint Detection",
+        description: "Facial keypoint detection project using computer vision and machine learning techniques.",
+        url: "https://github.com/Elyar-es/facial_keypoint_detection",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    },
+    {
+        name: "character-recognition",
+        displayName: "Character Recognition",
+        description: "Character recognition system using deep learning and image processing.",
+        url: "https://github.com/Elyar-es/character-recognition",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    },
+    {
+        name: "online-shop-project",
+        displayName: "Online Shop Project",
+        description: "E-commerce platform with shopping cart, user authentication, and payment integration.",
+        url: "https://github.com/Elyar-es/online-shop-project",
+        stars: 0,
+        forks: 0,
+        language: "JavaScript"
+    },
+    {
+        name: "server",
+        displayName: "Server",
+        description: "Backend server implementation with API endpoints and database integration.",
+        url: "https://github.com/Elyar-es/server",
+        stars: 0,
+        forks: 0,
+        language: "JavaScript"
     }
 ];
 
