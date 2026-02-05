@@ -39,9 +39,9 @@ async function fetchRepositories() {
         // Filter out excluded repositories
         let filteredRepos = repos.filter(repo => !EXCLUDED_REPOS.includes(repo.name));
         
-        // Filter out forks if you only want original projects
-        // Uncomment the next line if you want to exclude forks
-        // filteredRepos = filteredRepos.filter(repo => !repo.fork);
+        // Filter out forks (to show original versions instead)
+        // This will exclude forked repositories like CAPE fork
+        filteredRepos = filteredRepos.filter(repo => !repo.fork);
         
         console.log('After filtering:', filteredRepos.length, 'repositories');
         
@@ -72,9 +72,20 @@ function getPrimaryLanguage(languages) {
     return sorted[0][0];
 }
 
+// Format repository name by replacing dashes and underscores with spaces
+function formatProjectName(name) {
+    return name
+        .replace(/-/g, ' ')
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
 // Create project card HTML (without update time)
 function createProjectCard(repo, primaryLanguage) {
     const description = repo.description || 'No description available';
+    const displayName = formatProjectName(repo.name);
     
     return `
         <div class="project-card" onclick="window.open('${repo.html_url}', '_blank')">
@@ -82,7 +93,7 @@ function createProjectCard(repo, primaryLanguage) {
                 <div>
                     <h3 class="project-title">
                         <a href="${repo.html_url}" class="project-link" target="_blank" onclick="event.stopPropagation()">
-                            ${repo.name}
+                            ${displayName}
                         </a>
                     </h3>
                 </div>
