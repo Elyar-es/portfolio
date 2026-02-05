@@ -5,12 +5,18 @@ const API_BASE = 'https://api.github.com';
 // List of repository names to exclude from the projects page
 // Add repository names here that you don't want to display
 const EXCLUDED_REPOS = [
-    // 'portfolio',  // Example: exclude the portfolio repo itself
     'portfolio',
     'codewars_solutions',
     'Introduction-to-Programming',
-    // 'some-other-repo',
 ];
+
+// Map of repository names to their original repository URLs
+// Use this to redirect forks to their original repositories
+const ORIGINAL_REPO_URLS = {
+    'CAPE': 'https://github.com/NeuraVisionLab/CAPE',
+    // Add more mappings here if needed
+    // 'other-fork': 'https://github.com/original-owner/original-repo',
+};
 
 // Get all repositories for the user
 async function fetchRepositories() {
@@ -39,9 +45,16 @@ async function fetchRepositories() {
         // Filter out excluded repositories
         let filteredRepos = repos.filter(repo => !EXCLUDED_REPOS.includes(repo.name));
         
-        // Filter out forks (to show original versions instead)
-        // This will exclude forked repositories like CAPE fork
-        filteredRepos = filteredRepos.filter(repo => !repo.fork);
+        // For repos that have original URLs mapped, include them even if they're forks
+        // Otherwise, filter out forks (to show original versions instead)
+        filteredRepos = filteredRepos.filter(repo => {
+            // Keep repos that have an original URL mapping (like CAPE)
+            if (ORIGINAL_REPO_URLS[repo.name]) {
+                return true;
+            }
+            // Otherwise, exclude forks
+            return !repo.fork;
+        });
         
         console.log('After filtering:', filteredRepos.length, 'repositories');
         
@@ -87,12 +100,15 @@ function createProjectCard(repo, primaryLanguage) {
     const description = repo.description || 'No description available';
     const displayName = formatProjectName(repo.name);
     
+    // Check if this repo should link to an original repository instead
+    const repoUrl = ORIGINAL_REPO_URLS[repo.name] || repo.html_url;
+    
     return `
-        <div class="project-card" onclick="window.open('${repo.html_url}', '_blank')">
+        <div class="project-card" onclick="window.open('${repoUrl}', '_blank')">
             <div class="project-header">
                 <div>
                     <h3 class="project-title">
-                        <a href="${repo.html_url}" class="project-link" target="_blank" onclick="event.stopPropagation()">
+                        <a href="${repoUrl}" class="project-link" target="_blank" onclick="event.stopPropagation()">
                             ${displayName}
                         </a>
                     </h3>
@@ -122,7 +138,7 @@ function createProjectCard(repo, primaryLanguage) {
                 ` : ''}
             </div>
             <div class="project-footer">
-                <a href="${repo.html_url}" class="view-button" target="_blank" onclick="event.stopPropagation()">
+                <a href="${repoUrl}" class="view-button" target="_blank" onclick="event.stopPropagation()">
                     View on GitHub →
                 </a>
             </div>
