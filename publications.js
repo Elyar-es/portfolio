@@ -54,7 +54,6 @@ function createPublicationItem(pub) {
                 <h3 class="publication-title">${pub.title}</h3>
                 <p class="publication-authors">${pub.authors}</p>
                 <p class="publication-venue">${pub.venue}</p>
-                <p class="publication-description">${pub.description}</p>
                 ${linksHtml ? `<div class="publication-links">${linksHtml}</div>` : ''}
             </div>
         </div>
