@@ -68,7 +68,7 @@ const PROJECTS = [
         displayName: "Online Shop Project",
         description: "E-commerce platform with shopping cart, user authentication, and payment integration.",
         url: "https://github.com/Elyar-es/online-shop-project",
-        stars: 0,
+        stars: 1,
         forks: 0,
         language: "Java"
     },
