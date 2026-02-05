@@ -1,10 +1,10 @@
 // Publications data - Edit this array to add your publications
 const publications = [
     {
-        title: "Sample Publication Title",
-        authors: "Author 1, Author 2, Your Name",
+        title: "CAPE: Connectivity-Aware Path Enforcement Loss for Curvilinear Structure Delineation",
+        authors: "Your Name, Co-author 1, Co-author 2",
         venue: "Conference/Journal Name, Year",
-        description: "Brief description of the publication. This is a placeholder - edit publications.js to add your actual publications.",
+        description: "Brief description of the publication. Edit publications.js to add the full description, authors, venue, and links.",
         links: {
             pdf: "#",
             webpage: "#",
