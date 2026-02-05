@@ -30,7 +30,7 @@ const PROJECTS = [
     {
         name: "Curvilinear Structure Segmentation",
         displayName: "Curvilinear Structure Segmentation",
-        description: "2D curvilinear structure segmentation project for road and path detection using advanced image processing techniques.",
+        description: "2D curvilinear structure segmentation code base",
         url: "https://github.com/Elyar-es/Curvilinear-Structure-Segmentation",
         stars: 0,
         forks: 0,
