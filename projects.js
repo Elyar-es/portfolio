@@ -6,6 +6,9 @@ const API_BASE = 'https://api.github.com';
 // Add repository names here that you don't want to display
 const EXCLUDED_REPOS = [
     // 'portfolio',  // Example: exclude the portfolio repo itself
+    'portfolio',
+    'codewars_solutions',
+    'Introduction-to-Programming',
     // 'some-other-repo',
 ];
 
