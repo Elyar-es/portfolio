@@ -2,6 +2,13 @@
 const GITHUB_USERNAME = 'Elyar-es';
 const API_BASE = 'https://api.github.com';
 
+// List of repository names to exclude from the projects page
+// Add repository names here that you don't want to display
+const EXCLUDED_REPOS = [
+    // 'portfolio',  // Example: exclude the portfolio repo itself
+    // 'some-other-repo',
+];
+
 // Get all repositories for the user
 async function fetchRepositories() {
     try {
@@ -26,11 +33,16 @@ async function fetchRepositories() {
             throw new Error('Unexpected response format from GitHub API');
         }
         
+        // Filter out excluded repositories
+        let filteredRepos = repos.filter(repo => !EXCLUDED_REPOS.includes(repo.name));
+        
         // Filter out forks if you only want original projects
         // Uncomment the next line if you want to exclude forks
-        // const originalRepos = repos.filter(repo => !repo.fork);
+        // filteredRepos = filteredRepos.filter(repo => !repo.fork);
         
-        return repos;
+        console.log('After filtering:', filteredRepos.length, 'repositories');
+        
+        return filteredRepos;
     } catch (error) {
         console.error('Error fetching repositories:', error);
         throw error;
