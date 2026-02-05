@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Elyar</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">About</a></li>
+                <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                <li><a href="publications.html" class="nav-link">Publications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="page-header">
+            <h1>Projects</h1>
+            <p class="subtitle">A collection of my work on GitHub</p>
+        </section>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading projects...</p>
+        </div>
+
+        <div class="error" id="error" style="display: none;">
+            <p>Unable to load projects. Please check your GitHub username.</p>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+
+    <footer>
+        <p>Built with GitHub Pages & GitHub API</p>
+    </footer>
+
+    <script src="projects.js"></script>
+</body>
+</html>
+
