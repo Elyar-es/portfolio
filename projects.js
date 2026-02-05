@@ -5,13 +5,30 @@ const API_BASE = 'https://api.github.com';
 // Get all repositories for the user
 async function fetchRepositories() {
     try {
-        const response = await fetch(`${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`);
+        const url = `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`;
+        console.log('Fetching from:', url);
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/vnd.github.v3+json',
+            }
+        });
+        
+        console.log('Response status:', response.status, response.statusText);
         
         if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
+            const errorText = await response.text();
+            console.error('Error response:', errorText);
+            throw new Error(`GitHub API error: ${response.status} ${response.statusText}. ${errorText}`);
         }
         
         const repos = await response.json();
+        console.log('Fetched repositories:', repos.length);
+        
+        if (!Array.isArray(repos)) {
+            throw new Error('Unexpected response format from GitHub API');
+        }
         
         // Filter out forks if you only want original projects
         // Uncomment the next line if you want to exclude forks
@@ -20,6 +37,9 @@ async function fetchRepositories() {
         return repos;
     } catch (error) {
         console.error('Error fetching repositories:', error);
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error('Network error: Unable to connect to GitHub API. Please check your internet connection.');
+        }
         throw error;
     }
 }
@@ -130,7 +150,19 @@ async function displayProjects() {
         console.error('Error displaying projects:', error);
         loadingEl.style.display = 'none';
         errorEl.style.display = 'block';
-        errorEl.innerHTML = `<p>Unable to load projects. Error: ${error.message}. Please check your GitHub username in projects.js (currently set to: ${GITHUB_USERNAME})</p>`;
+        const errorMessage = error.message || 'Unknown error occurred';
+        errorEl.innerHTML = `
+            <p><strong>Unable to load projects</strong></p>
+            <p>Error: ${errorMessage}</p>
+            <p>GitHub username: <code>${GITHUB_USERNAME}</code></p>
+            <p>Please check:</p>
+            <ul style="text-align: left; display: inline-block; margin-top: 0.5rem;">
+                <li>Your internet connection</li>
+                <li>That the username "${GITHUB_USERNAME}" is correct</li>
+                <li>That the user has public repositories</li>
+                <li>Browser console for more details (F12)</li>
+            </ul>
+        `;
     }
 }
 
