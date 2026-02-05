@@ -9,16 +9,42 @@ const PROJECTS = [
         forks: 1,
         language: "Python"
     },
-    // Add more projects here:
-    // {
-    //     name: "project-name",
-    //     displayName: "Project Name",  // Optional: custom display name
-    //     description: "Project description",
-    //     url: "https://github.com/username/repo",
-    //     stars: 0,
-    //     forks: 0,
-    //     language: "Python"  // Optional
-    // }
+    {
+        name: "Active Learning With Uncertainty-Aware Generation",
+        displayName: "Active Learning With Uncertainty-Aware Generation",
+        description: "End-to-end experiments for uncertainty-driven active learning on tabular and vision datasets. Includes baseline active learning, uncertainty-conditioned CGAN augmentation, and VAE latent interpolation.",
+        url: "https://github.com/Elyar-es/Active-Learning-With-Uncertainty-Aware-Generation",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    },
+    {
+        name: "Bounding Boxes Refinement Using Level Sets",
+        displayName: "Bounding Boxes Refinement Using Level Sets",
+        description: "Refining the predicted bounding boxes of object detection models using Level Sets. Improves segmentation accuracy through various initialization strategies for the Level Set function.",
+        url: "https://github.com/Elyar-es/Bounding-Box-Refinement-Using-Level-Sets",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    },
+    {
+        name: "Curvilinear Structure Segmentation",
+        displayName: "Curvilinear Structure Segmentation",
+        description: "2D curvilinear structure segmentation project for road and path detection using advanced image processing techniques.",
+        url: "https://github.com/Elyar-es/Curvilinear-Structure-Segmentation",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    },
+    {
+        name: "Data Science for Software Engineering",
+        displayName: "Data Science for Software Engineering",
+        description: "Iterative refinement of human-written code reviews using CRScore and LLMs. Includes reward rerank pipeline and comprehensive evaluation framework.",
+        url: "https://github.com/Elyar-es/CS-588",
+        stars: 0,
+        forks: 0,
+        language: "Python"
+    }
 ];
 
 // Format repository name by replacing dashes and underscores with spaces
