@@ -2,9 +2,9 @@
 const publications = [
     {
         title: "CAPE: Connectivity-Aware Path Enforcement Loss for Curvilinear Structure Delineation",
-        authors: "Your Name, Co-author 1, Co-author 2",
-        venue: "MICCAI 2025",
-        description: "Brief description of the publication. Edit publications.js to add the full description and authors.",
+        authors: "Esmaeilzadeh, E., Garaaghaji, E., Hallaji Azad, F. and Oner, D.",
+        venue: "International Conference on Medical Image Computing and Computer-Assisted Intervention (pp. 183-193) 2025, September",
+        description: "Brief description of the publication. Edit publications.js to add the full description.",
         links: {
             pdf: "https://papers.miccai.org/miccai-2025/paper/4309_paper.pdf",
             webpage: "https://neuravisionlab.github.io/CAPE/",
