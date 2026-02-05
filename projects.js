@@ -100,7 +100,7 @@ async function displayProjects() {
     try {
         const repos = await fetchRepositories();
         
-        if (repos.length === 0) {
+        if (!repos || repos.length === 0) {
             gridEl.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No repositories found.</p>';
             loadingEl.style.display = 'none';
             return;
@@ -112,9 +112,14 @@ async function displayProjects() {
         // Create cards for each repository
         const cards = await Promise.all(
             repos.map(async (repo) => {
-                const languages = await fetchRepoLanguages(repo);
-                const primaryLanguage = getPrimaryLanguage(languages);
-                return createProjectCard(repo, primaryLanguage);
+                try {
+                    const languages = await fetchRepoLanguages(repo);
+                    const primaryLanguage = getPrimaryLanguage(languages);
+                    return createProjectCard(repo, primaryLanguage);
+                } catch (err) {
+                    console.error(`Error processing repo ${repo.name}:`, err);
+                    return createProjectCard(repo, null);
+                }
             })
         );
         
@@ -125,6 +130,7 @@ async function displayProjects() {
         console.error('Error displaying projects:', error);
         loadingEl.style.display = 'none';
         errorEl.style.display = 'block';
+        errorEl.innerHTML = `<p>Unable to load projects. Error: ${error.message}. Please check your GitHub username in projects.js (currently set to: ${GITHUB_USERNAME})</p>`;
     }
 }
 
