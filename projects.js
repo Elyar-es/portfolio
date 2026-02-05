@@ -3,7 +3,7 @@ const PROJECTS = [
     {
         name: "CAPE",
         displayName: "CAPE",
-        description: "Connectivity-Aware Path Enforcement Loss for Curvilinear Structure Delineation",
+        description: "This is the official repository for CAPE: Connectivity-Aware Path Enforcement accepted in MICCAI 2025.",
         url: "https://github.com/NeuraVisionLab/CAPE",
         stars: 8,
         forks: 1,
@@ -25,7 +25,7 @@ const PROJECTS = [
         url: "https://github.com/Elyar-es/Bounding-Box-Refinement-Using-Level-Sets",
         stars: 0,
         forks: 0,
-        language: "Python"
+        language: "Jupyter Notebook"
     },
     {
         name: "Curvilinear Structure Segmentation",
@@ -34,13 +34,13 @@ const PROJECTS = [
         url: "https://github.com/Elyar-es/Curvilinear-Structure-Segmentation",
         stars: 0,
         forks: 0,
-        language: "Python"
+        language: "Jupyter Notebook"
     },
     {
         name: "Data Science for Software Engineering",
         displayName: "Data Science for Software Engineering",
         description: "Iterative refinement of human-written code reviews using CRScore and LLMs. Includes reward rerank pipeline and comprehensive evaluation framework.",
-        url: "https://github.com/Elyar-es/CS-588",
+        url: "https://github.com/Elyar-es/Data-science-for-Software-Engineering-Course-project",
         stars: 0,
         forks: 0,
         language: "Python"
@@ -48,7 +48,7 @@ const PROJECTS = [
     {
         name: "facial_keypoint_detection",
         displayName: "Facial Keypoint Detection",
-        description: "Facial keypoint detection project using computer vision and machine learning techniques.",
+        description: "Facial keypoint detection for rhinoplasty",
         url: "https://github.com/Elyar-es/facial_keypoint_detection",
         stars: 0,
         forks: 0,
@@ -57,11 +57,11 @@ const PROJECTS = [
     {
         name: "character-recognition",
         displayName: "Character Recognition",
-        description: "Character recognition system using deep learning and image processing.",
+        description: "This project is used to decide whether the selected pattern looks like an X or O",
         url: "https://github.com/Elyar-es/character-recognition",
         stars: 0,
         forks: 0,
-        language: "Python"
+        language: "Java"
     },
     {
         name: "online-shop-project",
@@ -70,16 +70,16 @@ const PROJECTS = [
         url: "https://github.com/Elyar-es/online-shop-project",
         stars: 0,
         forks: 0,
-        language: "JavaScript"
+        language: "Java"
     },
     {
         name: "server",
         displayName: "Server",
-        description: "Backend server implementation with API endpoints and database integration.",
+        description: "Custom Implementation of HTTP protocol and a functioning web server",
         url: "https://github.com/Elyar-es/server",
         stars: 0,
         forks: 0,
-        language: "JavaScript"
+        language: "Rust"
     }
 ];
 
